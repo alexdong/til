@@ -2,8 +2,8 @@
 
 ## iOS
 
-(Semantic design system)[iOS/semantic-design-system.md]
+* [Semantic design system](iOS/semantic-design-system.md)
 
 ## Python
 
-(Parameterized test)[Python/parameterized.md]
+[Parameterized test](Python/parameterized.md)
