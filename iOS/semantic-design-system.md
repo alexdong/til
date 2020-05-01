@@ -1,4 +1,11 @@
-iOS 13 provides a design system that takes care of lots of the heavy lifting tasks in UI design:
+## Dark mode
+
+Dark mode calls for a new design sytem to take care of lots of the heavy lifting tasks in UI design:
+
+Full video: https://developer.apple.com/videos/play/wwdc2019/214
+
+## Semantic design system
+
 
 Full video: https://developer.apple.com/videos/play/wwdc2019/808/
 
