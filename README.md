@@ -2,4 +2,4 @@
 
 ## iOS
 
-(Semantic design system)[iOS/semantic-design-system.md]
+* [Semantic design system](iOS/semantic-design-system.md)
