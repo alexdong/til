@@ -6,4 +6,5 @@
 
 ## Python
 
-[Parameterized test](Python/parameterized.md)
+* [Parameterized test](Python/parameterized.md)
+* [Pycharm shortcuts](Python/pycharm-shortcuts.md)
