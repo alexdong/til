@@ -5,6 +5,7 @@
 We use **ROA** To evaluate how quickly the business can turn its assets into profit.
 
 ROA = Operating profit / Total asset
+
 We are between 4.69% and 7.94%. Over 5% is considered to be good.
 
 1. Operating profit is the same as Net profit. It's Gross profit minus operating expenses.
@@ -17,12 +18,11 @@ EPS = Net income / shares
 
 Our last three months are 0.00187, 0.00325, -0.0010.
 
-References:
-Sanford: 0.45
-Fisher & Paykel: 0.406
-Kathmandu: 0.161
-Vista Group: 0.062
-NZX: 0.053
-Michael Hill: $0.044
-Serko: -0.002
-Scott Technology: -0.124
+* Sanford: 0.45
+* Fisher & Paykel: 0.406
+* Kathmandu: 0.161
+* Vista Group: 0.062
+* NZX: 0.053
+* Michael Hill: $0.044
+* Serko: -0.002
+* Scott Technology: -0.124
