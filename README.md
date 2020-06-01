@@ -13,3 +13,7 @@
 ## Cooking
 
 * [IKEA Meat ball &](https://kottke.org/plus/misc/images/ikea-meatballs-recipe.jpg)
+
+## Corporate Finance
+
+* [Corporate metrics & valuations](Finance/corporate-metrics-valuation.md)
