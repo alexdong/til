@@ -1,14 +1,15 @@
-Use `` to add on-device wake word detection.
-https://github.com/Picovoice/porcupine
+Use [porpupine](https://github.com/Picovoice/porcupine) to add on-device wake word detection.
 
+```shell
   brew install portaudio
   pip install pyaudio
   pip install pvporcupine
+```
 
 The following function wraps up the simplest way to detect 
 wake word "bumblebee".
 
-
+```python
   import pyaudio
   import struct
   import pvporcupine
@@ -29,4 +30,4 @@ wake word "bumblebee".
           result = proc.process(pcm)
           if result:
               break
-
+```
