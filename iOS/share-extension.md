@@ -167,20 +167,22 @@ architectures” setting when you create a new app extension target.
 
 ## TODO
 
-[] Create container app
-  [] Container app as a "Library viewer"
-  [] Xcode share template
-  [] declare supported data types for a Share Extension via `Info.plist` 
-  [] `NSExtensionActivationRule` -> `NSExtensionActivationSupportsImageWithMaxCount`
-  [] `NSExtensionPointIdentifier`-> `nz.happymoose.upload-services` 
-  [] Share option show up in Action Sheet
-[] Compose view controller (system provided or completely custom)
-  [] Show logo and brand name.
-  [] Show total number of photos to be uploaded. 
-  [] Background upload and show results in the container app.
-  [] Upload to HappyMoose API
-[] Authentication through the container app. Sign in with Apple through the [AuthenticationServices](https://developer.apple.com/documentation/authenticationservices/implementing_user_authentication_with_sign_in_with_apple).
-  [] Once authenticated through the website, store the API key with container and make it available to the extension.
+- [ ] Create container app
+  - [ ] Container app as a "Library viewer"
+  - [ ] Xcode share template
+  - [ ] declare supported data types for a Share Extension via `Info.plist` 
+  - [ ] `NSExtensionActivationRule` -> `NSExtensionActivationSupportsImageWithMaxCount`
+  - [ ] `NSExtensionPointIdentifier`-> `nz.happymoose.upload-services` 
+  - [ ] Share option show up in Action Sheet
+- [ ] Compose view controller (system provided or completely custom)
+  - [ ] Show logo and brand name.
+  - [ ] Show total number of photos to be uploaded. 
+  - [ ] Background upload and show results in the container app.
+  - [ ] Upload to HappyMoose API
+- [ ] Authentication through the container app. Sign in with Apple through the [AuthenticationServices](https://developer.apple.com/documentation/authenticationservices/implementing_user_authentication_with_sign_in_with_apple).
+  - [ ] Once authenticated through the website, store the API key with container and make it available to the extension.
+- [ ] Deploy through TestFlight
+  - [ ] Deploy through AppStore
 
 ## References
 
