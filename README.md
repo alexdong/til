@@ -3,6 +3,7 @@
 ## iOS
 
 * [Semantic design system](iOS/semantic-design-system.md)
+* [Share extension](iOS/share-extension.md)
 
 ## Python
 
@@ -14,6 +15,10 @@
 
 * [How to load scripts into Photoshop ~](https://community.adobe.com/t5/photoshop/how-to-assign-shortcut-key-top-script-in-ps-cc-20-0-4/td-p/10538772?page=1)
 * [Tile up 12" photos onto 24" rolls](Photoshop/tile-12-inch-photos-into-24-in-group-of-two.md)
+
+## SysAdmin
+
+* [Better system level utilities](SysAdmin/system-utils.md)
 
 ## Cooking
 
