@@ -20,6 +20,7 @@
 
 * [Better system level utilities](SysAdmin/system-utils.md)
 * [Telegraf, influxdb and Grafana - Data analysis toolkit](grafana-influxdb-telegraf.md)
+* [Nginx](nginx.md)
 
 ## Cooking
 
