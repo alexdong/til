@@ -18,9 +18,10 @@
 
 ## SysAdmin
 
+* [macOS](SysAdmin/osx.md)
 * [Better system level utilities](SysAdmin/system-utils.md)
 * [Telegraf, influxdb and Grafana - Data analysis toolkit](SysAdmin/grafana-influxdb-telegraf.md)
-* [Nginx](nginx.md)
+* [Nginx](SysAdmin/nginx.md)
 
 ## Cooking
 
