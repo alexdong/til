@@ -23,6 +23,11 @@
 * [Telegraf, influxdb and Grafana - Data analysis toolkit](SysAdmin/grafana-influxdb-telegraf.md)
 * [Nginx](SysAdmin/nginx.md)
 
+## Utilities
+
+* [xmlselect](Python/xmlselect.py)
+* [hydrojinja](Python/hydrojinja.py)
+
 ## Cooking
 
 * [IKEA Meat ball &](https://kottke.org/plus/misc/images/ikea-meatballs-recipe.jpg)
