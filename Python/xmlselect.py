@@ -10,7 +10,7 @@ but with better stackoverflow searchability.
 Let's look at a couple of examples:
 
     $ echo "<svg><text>hello</text></svg>" | xmlselect "//text"
-    hello
+    <text>hello</text>
 
 
 When it comes to more real-world XML documents, we'll need
@@ -20,8 +20,16 @@ want to see human suffering in action.
 
 Here is an example of production code
 
-    $ cat barcode.svg | xmlselect -n "svg=http://www.w3.org/2000/svg" //svg:text
-    <text style="...">14727</text>
+    $ cat barcode.svg | xmlselect -n "svg=http://www.w3.org/2000/svg" //svg:g
+    <g><text>...</text></g>
+
+
+When you want to print only the 'inner XML`, use the `-c` or `--children-only`.
+For example, in the example above, here is the command to print only the children
+of `<g>`:
+
+    $ cat barcode.svg | xmlselect -i -n "svg=http://www.w3.org/2000/svg" //svg:g
+    <text>...</text>
 
 
 Going further, the namespaces are definted in the URL
@@ -42,6 +50,19 @@ from lxml import etree
 import click as cli
 
 
+def print_element(e):
+    sys.stdout.write(etree.tostring(e, encoding="unicode"))
+
+
+def print_inner_nodes(e):
+    for child in e:
+        print_element(child)
+
+
+def print_node(e, show_only_children):
+    print_inner_nodes(e) if show_only_children else print_element(e)
+
+
 @cli.command()
 @cli.option(
     "-n",
@@ -49,16 +70,25 @@ import click as cli
     "namespaces",
     help="Namespaces declared in URL query format. eg  `svg=http://www.w3.org/2000/svgMathML=http://www.w3.org/1998/Math/MathML`",
 )
+@cli.option(
+    "-c",
+    "--children-only",
+    "show_children_only",
+    is_flag=True,
+    default=False,
+    help="Show only the inner XML",
+)
 @cli.argument("selector")
-def run(namespaces: str, selector: str):
+def run(namespaces: str, show_children_only: bool, selector: str):
     payload = sys.stdin.read().encode()
-    soup = etree.fromstring(payload)
-    elem = soup.xpath(selector, namespaces=urllib.parse.parse_qsl(namespaces))
+    elem = etree.fromstring(payload).xpath(
+        selector, namespaces=urllib.parse.parse_qsl(namespaces)
+    )
     if isinstance(elem, list):
         for e in elem:
-            sys.stdout.write(etree.tostring(e, encoding="unicode"))
+            print_node(e, show_only_children=show_children_only)
     else:
-        sys.stdout.write(etree.tostring(elem, encoding="unicode"))
+        print_node(elem, show_only_children=show_children_only)
 
 
 if __name__ == "__main__":
