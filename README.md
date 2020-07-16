@@ -5,11 +5,19 @@
 * [Semantic design system](iOS/semantic-design-system.md)
 * [Share extension](iOS/share-extension.md)
 
+
+## Computational Photography
+
+* [pyheif](CompPhoto/pyheif.md)
+* [Inspirations](CompPhoto/inspirations.md)
+
+
 ## Python
 
 * [Parameterized test](Python/parameterized.md)
 * [Pycharm shortcuts](Python/pycharm-shortcuts.md)
 * [Pycharm code shift patterns](Python/pycharm-code-shift-patterns.md)
+
 
 ## Photoshop automation
 
@@ -18,6 +26,8 @@
 
 ## SysAdmin
 
+* [.zshrc](SysAdmin/zshrc.md)
+* [ubuntu](SysAdmin/ubuntu.md)
 * [macOS](SysAdmin/osx.md)
 * [Better system level utilities](SysAdmin/system-utils.md)
 * [Telegraf, influxdb and Grafana - Data analysis toolkit](SysAdmin/grafana-influxdb-telegraf.md)
