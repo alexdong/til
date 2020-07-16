@@ -1,4 +1,6 @@
 ```vim
+ZSH_THEME="agnoster"
+
 DISABLE_AUTO_TITLE="true"
 ENABLE_CORRECTION="true"
 plugins=(aws brew dotenv iterm2 git pip python pylint ssh-agent vi-mode virtualenv yarn z)
