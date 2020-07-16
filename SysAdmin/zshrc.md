@@ -1,5 +1,5 @@
 ```vim
-ZSH_THEME="agnoster"
+ZSH_THEME="aussiegeek"
 
 DISABLE_AUTO_TITLE="true"
 ENABLE_CORRECTION="true"
