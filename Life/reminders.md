@@ -1,0 +1,6 @@
+* [Too Efficient](https://www.tbray.org/ongoing/When/202x/2020/07/05/Too-Efficient)
+># Efficiency, taken to the max, can get very dark. ¶
+>
+> I suggest investing a few minutes in reading Behind the Smiles by Will Evans. Summary: Certain (not all) Amazon warehouses seem to have per-employee injury rates that are significantly higher than the industry average, as in twice as high or more. Apparent reason: It’s not they’re actually dangerous places to work, it’s just that they’ve maximized efficiency and reduced waste to the point where people are picking and packing and shipping every minute they’re working, never stopping. And a certain proportion of human bodies simply can’t manage that. They break down under pressure.
+> 
+> Robots matter, but not in the way you might think. The idea was that robotized warehouses should reduce stress and strain because they bring the pick-and-pack to the employees, rather than the people having to walk around to where the items are. But apparently robots correlate with higher injury rates. Behind the Smiles quotes employee Jonathan Meador: “‘Before robots, it was still tough, but it was manageable,’ he said. Afterward, ‘we were in a fight that we just can’t win.’”

@@ -1,3 +1,6 @@
+`entr` as one-line `modd`: `ls file | entr -s 'cmd'`
+
+
 ```shell
 alias ls="exa"
 alias grep="ag"
