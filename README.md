@@ -29,14 +29,15 @@
 * [.zshrc](SysAdmin/zshrc.md)
 * [ubuntu](SysAdmin/ubuntu.md)
 * [macOS](SysAdmin/osx.md)
-* [Better system level utilities](SysAdmin/system-utils.md)
 * [Telegraf, influxdb and Grafana - Data analysis toolkit](SysAdmin/grafana-influxdb-telegraf.md)
 * [Nginx](SysAdmin/nginx.md)
 
 ## Utilities
 
+* [utils](utils.md)
 * [xmlselect](Python/xmlselect.py)
 * [hydrojinja](Python/hydrojinja.py)
+* [lynx](SysAdmin/lynx.md)
 
 ## Cooking
 
@@ -45,3 +46,4 @@
 ## Corporate Finance
 
 * [Corporate metrics & valuations](Finance/corporate-metrics-valuation.md)
+
