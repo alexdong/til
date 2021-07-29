@@ -1,5 +1,10 @@
 # til
 
+## Life
+
+* [No surprise](Life/no-surprise.md)
+* [Maximum efficiency can be very dark](Life/max-efficiency.md)
+
 ## iOS
 
 * [Semantic design system](iOS/semantic-design-system.md)
