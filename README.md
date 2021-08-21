@@ -4,7 +4,7 @@
 
 * [No surprise](Life/no-surprise.md)
 * [Maximum efficiency can be very dark](Life/max-efficiency.md)
-* [Life/diffuse-big-emotions.md](Life/diffuse-big-emotions.md)
+* [Diffuse big emotions](Life/diffuse-big-emotions.md)
 
 ## iOS
 
