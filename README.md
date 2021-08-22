@@ -37,6 +37,7 @@
 * [macOS](SysAdmin/osx.md)
 * [Telegraf, influxdb and Grafana - Data analysis toolkit](SysAdmin/grafana-influxdb-telegraf.md)
 * [Nginx](SysAdmin/nginx.md)
+* [Which files/directories take up disk space](SysAdmin/find-out-big-files.md)
 
 ## Utilities
 
