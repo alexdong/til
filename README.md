@@ -2,6 +2,7 @@
 
 ## Life
 
+* [Connection is no substitute for communication](Life/communication.md)
 * [No surprise](Life/no-surprise.md)
 * [Maximum efficiency can be very dark](Life/max-efficiency.md)
 * [Diffuse big emotions](Life/diffuse-big-emotions.md)
