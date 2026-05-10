@@ -1,0 +1,14 @@
+tunnel: 9f7efff7-9f08-438e-8bc9-f44723be8edc
+credentials-file: /etc/cloudflared/9f7efff7-9f08-438e-8bc9-f44723be8edc.json
+
+originRequest:
+  disableChunkedEncoding: true
+
+ingress:
+  - hostname: papers.alexdong.com
+    service: http://127.0.0.1:9002
+  - hostname: til.alexdong.com
+    service: http://127.0.0.1:9003
+  - hostname: wordsmith.alexdong.com
+    service: http://127.0.0.1:9001
+  - service: http_status:404

@@ -1,58 +1,45 @@
 # til
 
-## Life
+Minimal Flask app for personal TIL notes.
 
-* "Connection is no substitute for communication"
-* [No surprise](Life/no-surprise.md)
-* [Maximum efficiency can be very dark](Life/max-efficiency.md)
-* [Diffuse big emotions](Life/diffuse-big-emotions.md)
+Notes are stored as Markdown and rendered as HTML.
 
-## iOS
+Inline `#tags` are extracted into note metadata, removed from rendered note text, and exposed as public filters.
 
-* [Vision network](iOS/vision-network.md)
-* [Semantic design system](iOS/semantic-design-system.md)
-* [Share extension](iOS/share-extension.md)
+## Run
 
+```bash
+uv sync
+FLASK_SKIP_DOTENV=1 uv run flask --app main run --debug
+```
 
-## Computational Photography
+## Publish
 
-* [pyheif](CompPhoto/pyheif.md)
-* [Inspirations](CompPhoto/inspirations.md)
+The private publishing URL opens the note form.
 
+The answer gate is currently commented out in `main.py`.
 
-## Python
+## Deploy
 
-* [Parameterized test](Python/parameterized.md)
-* [Pycharm shortcuts](Python/pycharm-shortcuts.md)
-* [Pycharm code shift patterns](Python/pycharm-code-shift-patterns.md)
+This mirrors `/home/ubuntu/wordsmith`:
 
+- app: `/home/ubuntu/til`
+- local service: `127.0.0.1:9003`
+- public hostname: `til.alexdong.com`
+- tunnel: existing `alexdong` Cloudflare tunnel
 
-## Photoshop automation
+Install/update:
 
-* [How to load scripts into Photoshop ~](https://community.adobe.com/t5/photoshop/how-to-assign-shortcut-key-top-script-in-ps-cc-20-0-4/td-p/10538772?page=1)
-* [Tile up 12" photos onto 24" rolls](Photoshop/tile-12-inch-photos-into-24-in-group-of-two.md)
+```bash
+sudo cp /home/ubuntu/til/deploy/til.service /etc/systemd/system/til.service
+sudo systemctl daemon-reload
+sudo systemctl enable --now til.service
+sudo systemctl status til.service --no-pager
+```
 
-## SysAdmin
+Cloudflare ingress should include:
 
-* [.zshrc](SysAdmin/zshrc.md)
-* [ubuntu](SysAdmin/ubuntu.md)
-* [macOS](SysAdmin/osx.md)
-* [Telegraf, influxdb and Grafana - Data analysis toolkit](SysAdmin/grafana-influxdb-telegraf.md)
-* [Nginx](SysAdmin/nginx.md)
-* [Which files/directories take up disk space](SysAdmin/find-out-big-files.md)
-
-## Utilities
-
-* [utils](utils.md)
-* [xmlselect](Python/xmlselect.py)
-* [hydrojinja](Python/hydrojinja.py)
-* [lynx](SysAdmin/lynx.md)
-
-## Cooking
-
-* [IKEA Meat ball &](https://kottke.org/plus/misc/images/ikea-meatballs-recipe.jpg)
-
-## Corporate Finance
-
-* [Corporate metrics & valuations](Finance/corporate-metrics-valuation.md)
-
+```yaml
+  - hostname: til.alexdong.com
+    service: http://127.0.0.1:9003
+```

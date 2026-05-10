@@ -1,1 +1,6 @@
-*.swp
+.venv/
+__pycache__/
+*.pyc
+.env
+til.db.bak-*
+*.log

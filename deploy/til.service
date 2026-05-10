@@ -1,0 +1,16 @@
+[Unit]
+Description=til Flask app
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/til
+Environment=FLASK_SKIP_DOTENV=1
+Environment=TIL_DATA_DIR=/home/ubuntu/til
+Environment=TIL_SECRET_KEY=e671aaa2d5b9ce4ff8b577c8bf80988a2b1be3a4edb6275cafb585c30d87e013
+ExecStart=/home/ubuntu/.local/bin/uv run --env-file /home/ubuntu/wordsmith/.env gunicorn --workers 2 --bind 127.0.0.1:9003 main:app
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

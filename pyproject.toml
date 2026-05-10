@@ -1,0 +1,12 @@
+[project]
+name = "til"
+version = "0.1.0"
+description = "Minimal personal TIL notes app"
+requires-python = ">=3.12"
+dependencies = [
+    "boto3>=1.42.89",
+    "flask>=3.1.0",
+    "gunicorn>=23.0.0",
+    "markdown>=3.8.0",
+    "pydantic-ai-slim[bedrock]>=1.17.0",
+]
