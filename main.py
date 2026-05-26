@@ -30,7 +30,8 @@ SCHEMA = """create table if not exists notes (
 )"""
 TAG_RE = re.compile(r"(?<![\w`])#([A-Za-z][A-Za-z0-9_-]*)\b")
 HTML_TAG_RE = re.compile(r"(<[^>]+>)")
-HUMANISE_PROMPT = """Rewrite this personal TIL note into clear, natural English.
+DEFAULT_HUMANISE_INSTRUCTION = "Rewrite this personal TIL note into clear, natural English."
+HUMANISE_PROMPT = """{instruction}
 
 Keep the author's meaning. Preserve Markdown structure where it helps.
 Do not add facts, summaries, introductions, or commentary.
@@ -63,6 +64,16 @@ a:visited{color:#551a8b}
 .note pre{white-space:pre-wrap;overflow-x:auto}
 .note code{font-family:monospace}
 .note blockquote{border-left:2px solid #ccc;padding-left:10px}
+.note table{border-collapse:collapse;margin:0 0 12px}
+.note th,.note td{border:1px solid #ccc;padding:2px 6px;text-align:left}
+.note th{font-weight:bold}
+.codehilite{margin:0 0 12px}
+.codehilite pre{margin:0}
+.codehilite .k,.codehilite .kn,.codehilite .kd{font-weight:bold}
+.codehilite .s,.codehilite .s1,.codehilite .s2{color:#070}
+.codehilite .c,.codehilite .c1,.codehilite .cm{color:#666}
+.codehilite .m,.codehilite .mi,.codehilite .mf{color:#164}
+.codehilite .nf,.codehilite .na{color:#007}
 .preview{min-height:320px}
 .date{font-family:monospace}
 .tags{margin:0 0 12px}
@@ -84,12 +95,15 @@ footer{margin-top:16px}
       </div>
       <article id="preview" class="note preview"></article>
     </div>
-    <p class="actions"><button type="submit">{% if view == "edit" %}save{% else %}publish{% endif %}</button><button id="humanise" type="button">humanise</button></p>
+    <p class="field"><input id="humanise-instruction" placeholder="humanise instruction"></p>
+    <p class="actions"><button id="humanise" type="button">humanise</button></p>
+    <p class="actions"><button type="submit">{% if view == "edit" %}save{% else %}publish{% endif %}</button></p>
   </form>
   <script>
   const body = document.getElementById("body");
   const preview = document.getElementById("preview");
   const humanise = document.getElementById("humanise");
+  const humaniseInstruction = document.getElementById("humanise-instruction");
   const tags = document.getElementById("tags");
   let previewTimer;
   let tagsEdited = tags.value.trim().length > 0;
@@ -123,7 +137,7 @@ footer{margin-top:16px}
       const res = await fetch("/humanise", {
         method: "POST",
         headers: {"Content-Type": "application/x-www-form-urlencoded"},
-        body: new URLSearchParams({body: body.value})
+        body: new URLSearchParams({body: body.value, instruction: humaniseInstruction.value})
       });
       if (!res.ok) throw new Error(await res.text());
       body.value = await res.text();
@@ -144,7 +158,18 @@ footer{margin-top:16px}
   <p class="date">{{ note["date"] }}</p>
   {% if note["tags"] %}<p class="tags">{% for tag in note["tags"] %}<a href="/?tag={{ tag }}">#{{ tag }}</a>{% if not loop.last %} {% endif %}{% endfor %}</p>{% endif %}
   <article class="note">{{ note["html"]|safe }}</article>
+  <p><a class="muted" href="/{{ note['slug'] }}/edit">edit</a></p>
+  <script>
+  document.addEventListener("keydown", (event) => {
+    if (event.metaKey && event.shiftKey && event.ctrlKey && event.key.toLowerCase() === "e") {
+      event.preventDefault();
+      const path = location.pathname.endsWith("/") ? location.pathname.slice(0, -1) : location.pathname;
+      location.href = path + "/" + "edit";
+    }
+  });
+  </script>
 {% else %}
+  <p><a class="muted" href="/fabiao">publish</a></p>
   {% if active_tag %}<p>Tag: <a href="/?tag={{ active_tag }}">#{{ active_tag }}</a> <a class="muted" href="/">all</a></p>{% endif %}
   {% if notes %}
     {% for note in notes %}
@@ -288,7 +313,8 @@ def linkify_hashtags(html):
 def render_markdown(body):
     html = markdown.markdown(
         body,
-        extensions=["extra", "sane_lists"],
+        extensions=["extra", "sane_lists", "tables", "fenced_code", "codehilite"],
+        extension_configs={"codehilite": {"guess_lang": False, "use_pygments": True}},
         output_format="html",
     )
     return linkify_hashtags(html)
@@ -389,10 +415,11 @@ def markdown_preview():
 @app.post("/humanise")
 def humanise_note():
     body = request.form.get("body", "").strip()
+    instruction = request.form.get("instruction", "").strip() or DEFAULT_HUMANISE_INSTRUCTION
     if not body:
         return "Paste a note first.", 400
     try:
-        return agent.run_sync(HUMANISE_PROMPT.format(body=body)).output
+        return agent.run_sync(HUMANISE_PROMPT.format(instruction=instruction, body=body)).output
     except Exception as exc:
         app.logger.exception("humanise failed")
         return str(exc), 500

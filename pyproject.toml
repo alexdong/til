@@ -9,4 +9,5 @@ dependencies = [
     "gunicorn>=23.0.0",
     "markdown>=3.8.0",
     "pydantic-ai-slim[bedrock]>=1.17.0",
+    "pygments>=2.19.0",
 ]
