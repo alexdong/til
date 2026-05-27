@@ -30,6 +30,7 @@ SCHEMA = """create table if not exists notes (
 )"""
 TAG_RE = re.compile(r"(?<![\w`])#([A-Za-z][A-Za-z0-9_-]*)\b")
 HTML_TAG_RE = re.compile(r"(<[^>]+>)")
+TAG_ALIASES = {"vlllm": "vllm"}
 DEFAULT_HUMANISE_INSTRUCTION = "Rewrite this personal TIL note into clear, natural English."
 HUMANISE_PROMPT = """{instruction}
 
@@ -77,8 +78,11 @@ a:visited{color:#551a8b}
 .preview{min-height:320px}
 .date{font-family:monospace}
 .tags{margin:0 0 12px}
+.index{display:grid;grid-template-columns:minmax(0,1fr) 180px;gap:24px;max-width:980px}
+.note-list p,.tag-list p{margin:0;line-height:1.25}
+.tag-list h2{margin-bottom:4px}
 footer{margin-top:16px}
-@media (max-width:800px){.editor{display:block}.preview{margin-top:12px}}
+@media (max-width:800px){.editor,.index{display:block}.preview{margin-top:12px}.tag-list{margin-top:12px}}
 </style>
 <main>
 <header>
@@ -169,15 +173,25 @@ footer{margin-top:16px}
   });
   </script>
 {% else %}
-  <p><a class="muted" href="/fabiao">publish</a></p>
-  {% if active_tag %}<p>Tag: <a href="/?tag={{ active_tag }}">#{{ active_tag }}</a> <a class="muted" href="/">all</a></p>{% endif %}
-  {% if notes %}
-    {% for note in notes %}
-      <p><span class="date">{{ note["date"] }}</span>: <a href="/{{ note['slug'] }}">{{ note["title"] or note["preview"] }}</a>{% if note["tags"] %} <span class="tags">{% for tag in note["tags"] %}<a href="/?tag={{ tag }}">#{{ tag }}</a>{% if not loop.last %} {% endif %}{% endfor %}</span>{% endif %}</p>
-    {% endfor %}
-  {% else %}
-    <p>No notes yet.</p>
-  {% endif %}
+  <div class="index">
+    <section class="note-list">
+      <p><a class="muted" href="/fabiao">publish</a></p>
+      {% if active_tag %}<p>Tag: <a href="/?tag={{ active_tag }}">#{{ active_tag }}</a> <a class="muted" href="/">all</a></p>{% endif %}
+      {% if notes %}
+        {% for note in notes %}
+          <p><span class="date">{{ note["date"] }}</span>: <a href="/{{ note['slug'] }}">{{ note["title"] or note["preview"] }}</a>{% if note["tags"] %} <span class="tags">{% for tag in note["tags"] %}<a href="/?tag={{ tag }}">#{{ tag }}</a>{% if not loop.last %} {% endif %}{% endfor %}</span>{% endif %}</p>
+        {% endfor %}
+      {% else %}
+        <p>No notes yet.</p>
+      {% endif %}
+    </section>
+    <aside class="tag-list">
+      <h2>Tags</h2>
+      {% for tag in all_tags %}
+        <p><a href="/?tag={{ tag['tag'] }}">#{{ tag["tag"] }}</a> {{ tag["count"] }}</p>
+      {% endfor %}
+    </aside>
+  </div>
 {% endif %}
 </main>"""
 
@@ -254,6 +268,7 @@ def normalize_tags(value):
     for tag in re.split(r"[\s,]+", value.strip()):
         tag = tag.removeprefix("#").strip().casefold()
         tag = re.sub(r"[^a-z0-9_-]+", "", tag)
+        tag = TAG_ALIASES.get(tag, tag)
         if tag and tag not in seen:
             tags.append(tag)
             seen.add(tag)
@@ -336,18 +351,29 @@ def fetch_note(slug):
     return get_db().execute("select * from notes where slug = ?", (slug,)).fetchone()
 
 
+def count_tags(notes):
+    counts = {}
+    for note in notes:
+        for tag in note["tags"]:
+            counts[tag] = counts.get(tag, 0) + 1
+    return [{"tag": tag, "count": counts[tag]} for tag in sorted(counts)]
+
+
 @app.route("/")
 def index():
     active_tag = normalize_tags(request.args.get("tag", ""))
-    if active_tag:
-        rows = get_db().execute(
-            "select * from notes where instr(' ' || tags || ' ', ?) > 0 order by created_at desc, id desc",
-            (f" {active_tag[0]} ",),
-        ).fetchall()
-    else:
-        rows = get_db().execute("select * from notes order by created_at desc, id desc").fetchall()
-    notes = [row_to_note(row) for row in rows]
-    return render_template_string(PAGE, notes=notes, note=None, view="index", error=None, active_tag=active_tag[0] if active_tag else None)
+    rows = get_db().execute("select * from notes order by created_at desc, id desc").fetchall()
+    all_notes = [row_to_note(row) for row in rows]
+    notes = [note for note in all_notes if active_tag[0] in note["tags"]] if active_tag else all_notes
+    return render_template_string(
+        PAGE,
+        notes=notes,
+        all_tags=count_tags(all_notes),
+        note=None,
+        view="index",
+        error=None,
+        active_tag=active_tag[0] if active_tag else None,
+    )
 
 
 @app.route("/fabiao", methods=["GET", "POST"])
